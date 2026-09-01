@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #f4efe4;
+  --panther-black: #0a0a0a;
+  --panther-charcoal: #171613;
+  --panther-charcoal-light: #242220;
+  --panther-gold: #e0b34c;
+  --panther-gold-dark: #a9791f;
+  --panther-crimson: #7d2333;
+  --panther-cream: #f4efe4;
+  --panther-muted: #a39a8c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-panther-black: var(--panther-black);
+  --color-panther-charcoal: var(--panther-charcoal);
+  --color-panther-charcoal-light: var(--panther-charcoal-light);
+  --color-panther-gold: var(--panther-gold);
+  --color-panther-gold-dark: var(--panther-gold-dark);
+  --color-panther-crimson: var(--panther-crimson);
+  --color-panther-cream: var(--panther-cream);
+  --color-panther-muted: var(--panther-muted);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--panther-gold);
+  color: var(--panther-black);
+}
+
+.text-gradient-panther {
+  background: linear-gradient(90deg, var(--panther-gold), var(--panther-crimson));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

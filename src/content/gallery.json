@@ -1,0 +1,8 @@
+[
+  { "id": "g1", "alt": "Team huddle before the match", "category": "Match Day" },
+  { "id": "g2", "alt": "Aisha Khan batting", "category": "Match Day" },
+  { "id": "g3", "alt": "Squad celebrating a wicket", "category": "Match Day" },
+  { "id": "g5", "alt": "Club social evening", "category": "Club Life" },
+  { "id": "g6", "alt": "Trophy presentation", "category": "Match Day" },
+  { "id": "g7", "alt": "Training nets session", "category": "Training" }
+]

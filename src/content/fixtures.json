@@ -1,0 +1,38 @@
+[
+  {
+    "id": "f1",
+    "opponent": "Royal Strikers CC",
+    "date": "2026-09-14",
+    "time": "09:30",
+    "venue": "Panther Grounds",
+    "matchType": "T20 League",
+    "mapUrl": "https://www.google.com/maps?q=Riverside+District+Cricket+Ground"
+  },
+  {
+    "id": "f2",
+    "opponent": "Ironwood CC",
+    "date": "2026-09-21",
+    "time": "13:00",
+    "venue": "Ironwood Sports Complex",
+    "matchType": "One-Day",
+    "mapUrl": "https://www.google.com/maps?q=Ironwood+Sports+Complex"
+  },
+  {
+    "id": "f3",
+    "opponent": "Metro Falcons",
+    "date": "2026-10-05",
+    "time": "10:00",
+    "venue": "Panther Grounds",
+    "matchType": "T20 League",
+    "mapUrl": "https://www.google.com/maps?q=Riverside+District+Cricket+Ground"
+  },
+  {
+    "id": "f4",
+    "opponent": "Coastal Titans",
+    "date": "2026-10-19",
+    "time": "09:00",
+    "venue": "Coastal Titans Ground",
+    "matchType": "One-Day",
+    "mapUrl": "https://www.google.com/maps?q=Coastal+Titans+Ground"
+  }
+]

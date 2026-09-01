@@ -1,0 +1,45 @@
+[
+  {
+    "id": "c1",
+    "name": "Marcus Reid",
+    "designation": "President",
+    "bio": "Leading the club since 2018, Marcus focuses on growth, partnerships, and long-term club strategy.",
+    "email": "marcus@blackpantherscc.com",
+    "instagram": "https://instagram.com/marcus.reid"
+  },
+  {
+    "id": "c2",
+    "name": "Aisha Khan",
+    "designation": "Club Captain",
+    "bio": "A top-order batter with a decade of league experience, Aisha leads the squad on and off the pitch.",
+    "instagram": "https://instagram.com/aisha.k"
+  },
+  {
+    "id": "c3",
+    "name": "Daniel Osei",
+    "designation": "Head Coach",
+    "bio": "Level 3 certified coach specializing in fast bowling development and match strategy.",
+    "email": "coach@blackpantherscc.com"
+  },
+  {
+    "id": "c4",
+    "name": "Priya Nair",
+    "designation": "Treasurer",
+    "bio": "Manages club finances, sponsorships, and membership dues with full transparency.",
+    "email": "priya@blackpantherscc.com"
+  },
+  {
+    "id": "c5",
+    "name": "Leo Fontaine",
+    "designation": "Vice Captain",
+    "bio": "An all-rounder known for clutch performances in must-win league fixtures.",
+    "instagram": "https://instagram.com/leo.fontaine"
+  },
+  {
+    "id": "c6",
+    "name": "Grace Okafor",
+    "designation": "Events Manager",
+    "bio": "Organizes club events, socials, and the annual awards night.",
+    "email": "grace@blackpantherscc.com"
+  }
+]

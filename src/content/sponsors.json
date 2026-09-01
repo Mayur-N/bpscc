@@ -1,0 +1,8 @@
+[
+  { "id": "s1", "name": "Savannah Sports Gear", "url": "https://example.com", "tier": "Platinum" },
+  { "id": "s2", "name": "Riverside Bank", "url": "https://example.com", "tier": "Platinum" },
+  { "id": "s3", "name": "Ironclad Fitness", "url": "https://example.com", "tier": "Gold" },
+  { "id": "s4", "name": "Metro Motors", "url": "https://example.com", "tier": "Gold" },
+  { "id": "s5", "name": "Coastal Cafe Co.", "url": "https://example.com", "tier": "Silver" },
+  { "id": "s6", "name": "Panther Print & Design", "url": "https://example.com", "tier": "Silver" }
+]

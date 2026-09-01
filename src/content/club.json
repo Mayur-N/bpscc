@@ -1,0 +1,38 @@
+{
+  "name": "Black Panthers Cricket Club",
+  "shortName": "Black Panthers CC",
+  "tagline": "Fearless on the Field, United as a Pride",
+  "founded": 2011,
+  "history": "Founded in 2011 by a small group of friends who shared a single net and a big dream, Black Panthers Cricket Club has grown into one of the most respected outfits in the local league. What began as weekend tape-ball games has turned into a full-fledged club with junior academies, a competitive senior squad, and a community that shows up for every match, rain or shine.",
+  "mission": "To develop disciplined, skillful cricketers while building a lifelong community rooted in respect, resilience, and the relentless pursuit of excellence.",
+  "vision": "To become the region's premier grassroots cricket club, producing players who represent city and state teams while giving every member a sense of pride and belonging.",
+  "values": [
+    { "title": "Discipline", "description": "On and off the field, we hold ourselves to the highest standard." },
+    { "title": "Brotherhood", "description": "We are a pride first — every win and loss is shared." },
+    { "title": "Excellence", "description": "We train hard and play harder, always chasing improvement." }
+  ],
+  "homeGround": {
+    "name": "Panther Grounds",
+    "address": "42 Savannah Road, Riverside District",
+    "mapEmbedUrl": "https://www.google.com/maps?q=Riverside+District+Cricket+Ground&output=embed"
+  },
+  "training": {
+    "days": "Tuesday & Thursday",
+    "time": "6:00 PM – 8:30 PM",
+    "weekendNets": "Saturday 7:00 AM – 10:00 AM",
+    "location": "Panther Grounds Nets"
+  },
+  "stats": {
+    "trophies": 12,
+    "activePlayers": 28,
+    "matchesPlayed": 214,
+    "winPercentage": 68
+  },
+  "social": {
+    "instagram": "https://instagram.com/blackpantherscc",
+    "youtube": "https://youtube.com/@blackpantherscc",
+    "facebook": "https://facebook.com/blackpantherscc",
+    "email": "info@blackpantherscc.com",
+    "phone": "+1 (555) 010-0199"
+  }
+}

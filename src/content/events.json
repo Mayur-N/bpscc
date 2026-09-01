@@ -1,0 +1,20 @@
+[
+  {
+    "id": "e2",
+    "title": "Pre-Season Training Camp",
+    "date": "2026-09-12",
+    "time": "6:00 PM",
+    "location": "Panther Grounds",
+    "category": "Training",
+    "description": "Intensive fitness and skills camp ahead of the league restart."
+  },
+  {
+    "id": "e4",
+    "title": "Club Awards Night",
+    "date": "2026-11-14",
+    "time": "7:00 PM",
+    "location": "Riverside Community Hall",
+    "category": "Social",
+    "description": "Celebrating the season's best performances with awards, dinner, and highlight reels."
+  }
+]

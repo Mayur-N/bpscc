@@ -1,0 +1,74 @@
+[
+  {
+    "id": "p1",
+    "name": "Aisha Khan",
+    "jersey": 7,
+    "role": "Top-Order Batsman",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "—",
+    "stats": { "matches": 96, "runs": 3412, "wickets": 0, "catches": 41, "average": 42.6, "strikeRate": 128.4 }
+  },
+  {
+    "id": "p2",
+    "name": "Leo Fontaine",
+    "jersey": 11,
+    "role": "All-Rounder",
+    "battingStyle": "Left-hand bat",
+    "bowlingStyle": "Right-arm medium-fast",
+    "stats": { "matches": 88, "runs": 2107, "wickets": 74, "catches": 33, "average": 31.2, "strikeRate": 118.9 }
+  },
+  {
+    "id": "p3",
+    "name": "Ibrahim Suleiman",
+    "jersey": 22,
+    "role": "Medium-Fast Bowler",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Right-arm fast-medium",
+    "stats": { "matches": 74, "runs": 340, "wickets": 121, "catches": 22, "average": 19.4, "strikeRate": 84.1 }
+  },
+  {
+    "id": "p4",
+    "name": "Tariq Ahmed",
+    "jersey": 3,
+    "role": "Wicket-Keeper",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "—",
+    "stats": { "matches": 91, "runs": 1876, "wickets": 0, "catches": 87, "average": 27.8, "strikeRate": 110.3 }
+  },
+  {
+    "id": "p5",
+    "name": "Kwame Boateng",
+    "jersey": 15,
+    "role": "Medium-Fast Bowler",
+    "battingStyle": "Left-hand bat",
+    "bowlingStyle": "Left-arm fast-medium",
+    "stats": { "matches": 68, "runs": 210, "wickets": 98, "catches": 19, "average": 21.7, "strikeRate": 76.5 }
+  },
+  {
+    "id": "p6",
+    "name": "Ravi Shankar",
+    "jersey": 9,
+    "role": "Top-Order Batsman",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Right-arm off-break",
+    "stats": { "matches": 82, "runs": 2890, "wickets": 12, "catches": 29, "average": 38.5, "strikeRate": 132.7 }
+  },
+  {
+    "id": "p7",
+    "name": "Samuel Bright",
+    "jersey": 18,
+    "role": "All-Rounder",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Right-arm leg-break",
+    "stats": { "matches": 60, "runs": 1420, "wickets": 55, "catches": 24, "average": 29.1, "strikeRate": 121.6 }
+  },
+  {
+    "id": "p8",
+    "name": "Devon Marsh",
+    "jersey": 27,
+    "role": "Wicket-Keeper",
+    "battingStyle": "Left-hand bat",
+    "bowlingStyle": "—",
+    "stats": { "matches": 45, "runs": 980, "wickets": 0, "catches": 52, "average": 25.3, "strikeRate": 105.8 }
+  }
+]

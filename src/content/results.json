@@ -1,0 +1,42 @@
+[
+  {
+    "id": "r1",
+    "opponent": "Ironwood CC",
+    "date": "2026-08-24",
+    "result": "Won",
+    "teamScore": "184/6 (20)",
+    "opponentScore": "159/8 (20)",
+    "summary": "Panthers cruised to a 25-run win powered by a 78* from Aisha Khan and 4/22 from Ibrahim Suleiman.",
+    "scorecardUrl": "https://cricheroes.com"
+  },
+  {
+    "id": "r2",
+    "opponent": "Metro Falcons",
+    "date": "2026-08-10",
+    "result": "Lost",
+    "teamScore": "142/9 (20)",
+    "opponentScore": "145/4 (18.2)",
+    "summary": "A middle-order collapse cost the Panthers despite a fighting spell from Kwame Boateng (3/24).",
+    "scorecardUrl": "https://cricheroes.com"
+  },
+  {
+    "id": "r3",
+    "opponent": "Coastal Titans",
+    "date": "2026-07-27",
+    "result": "Won",
+    "teamScore": "268/7 (50)",
+    "opponentScore": "201 all out (44.1)",
+    "summary": "A dominant all-round display: Ravi Shankar's 112 and Leo Fontaine's 5-wicket haul sealed a 67-run win.",
+    "scorecardUrl": "https://cricheroes.com"
+  },
+  {
+    "id": "r4",
+    "opponent": "Royal Strikers CC",
+    "date": "2026-07-13",
+    "result": "Won",
+    "teamScore": "175/5 (20)",
+    "opponentScore": "168/7 (20)",
+    "summary": "A last-over thriller finished by Samuel Bright with two boundaries to secure a 7-run win.",
+    "scorecardUrl": "https://cricheroes.com"
+  }
+]
