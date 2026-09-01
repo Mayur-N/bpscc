@@ -37,6 +37,26 @@ tests must be verified before the change is considered complete.** Concretely:
 - Do not reintroduce "community engagement" content (clinics, charity events, outreach
   programs) — this was deliberately removed because the club does not currently run
   these programs. Confirm with the user before adding anything like it back.
+- Non-technical admins can also edit content via the `/admin` UI instead of raw JSON
+  (see [CMS-GUIDE.md](../CMS-GUIDE.md)). If you add a new content collection, add it to
+  the `ADMIN_COLLECTIONS` allow-list in `src/lib/admin-collections.ts` so it's editable
+  there too, and update `CMS-GUIDE.md`.
+
+## Admin UI & security
+
+- `/admin` and `/api/admin/**` are guarded by `src/proxy.ts` using a signed,
+  httpOnly session cookie (`src/lib/admin-auth.ts`). The UI is intentionally disabled
+  (returns 503) unless both `ADMIN_PASSWORD` and `ADMIN_SESSION_SECRET` are set — never
+  hardcode a default password or bypass this check.
+- `src/app/api/admin/content/[collection]/route.ts` only reads/writes files listed in
+  `ADMIN_COLLECTIONS` (`src/lib/admin-collections.ts`) — never build a file path from
+  request input without going through that allow-list (path traversal risk).
+- Keep password comparisons constant-time (`safeCompare` in `src/lib/admin-auth.ts`)
+  rather than `===`.
+- This feature needs a writable filesystem + Node runtime, so it must be excluded (along
+  with `/api`) from the static GitHub Pages build — see
+  `.github/workflows/deploy-pages.yml`. If you add new server-only routes, also exclude
+  them there.
 
 ## Styling conventions
 
@@ -53,5 +73,8 @@ tests must be verified before the change is considered complete.** Concretely:
 
 - On Windows/PowerShell, `npx`/`npm` may fail with an execution-policy error about
   `.ps1` scripts being unsigned. Use `npx.cmd` / `npm.cmd` instead.
+- CI/CD is GitHub Actions: `.github/workflows/ci.yml` (lint/test/build/e2e on every
+  push/PR) and `.github/workflows/deploy-pages.yml` (static export deployed to GitHub
+  Pages on push to `main`). Keep both green — see "Hosting & deployment" in `README.md`.
 - The club crest image is expected at `public/images/logo.png` and is not committed by
   default — components reference this path but it may be missing in a fresh checkout.

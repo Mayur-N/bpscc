@@ -1,12 +1,45 @@
 # Content Management Guide (Black Panthers CC website)
 
-This site uses a **JSON-backed, developer-free content system**. All editable
-content lives in plain JSON files under `src/content/`. No coding experience
-is required — just open the file in any text editor (or GitHub's web editor),
-change the values between the quotes, and save.
+This site uses a **JSON-backed, developer-free content system**. There are two ways
+to edit content — pick whichever is available to you:
 
-> After editing content, the site needs to be rebuilt/redeployed (or restarted
-> in dev with `npm run dev`) to pick up changes, since content is read at build time.
+1. **The Admin UI** (`/admin`) — a password-protected, form-based editor in the
+   browser. No file editing, no JSON syntax to get wrong. See
+   [Editing content via the Admin UI](#editing-content-via-the-admin-ui) below.
+2. **Editing the JSON files directly** under `src/content/` — always available as a
+   fallback, e.g. via GitHub's web editor. See [Editing the JSON files directly](#editing-the-json-files-directly).
+
+> After editing content (either way), the site needs to be rebuilt/redeployed (or
+> restarted in dev with `npm run dev`) to pick up changes, since content is read at
+> build time.
+
+## Editing content via the Admin UI
+
+The Admin UI lets a non-technical committee member update content through a normal
+web form — no code, no JSON, no git required for the editing step itself.
+
+1. Ask a developer to set two environment variables on the server that runs the site
+   (see [`.env.example`](.env.example)): `ADMIN_PASSWORD` (the login password) and
+   `ADMIN_SESSION_SECRET` (any long random string). The Admin UI is disabled until
+   both are set.
+2. Go to `/admin` on the running site and log in with `ADMIN_PASSWORD`.
+3. Pick a section (Club Info, Squad, Fixtures, Results, Events, Gallery, Sponsors,
+   Committee, etc.), edit the fields, use **+ Add item** / **Remove** to add or delete
+   entries, then click **Save changes**.
+4. Saved changes are written straight to the same `src/content/*.json` files described
+   below. If the site auto-deploys from a server with a persistent, writable
+   filesystem, changes can go live on the next deploy; otherwise a developer commits
+   and pushes the updated files to publish them.
+
+> **Important:** the Admin UI needs a Node server with filesystem write access, so it
+> only works on the "Node-capable host" deployment option — it is not available on the
+> static GitHub Pages export (see the "Hosting" section of `README.md`).
+
+## Editing the JSON files directly
+
+All editable content lives in plain JSON files under `src/content/`. No coding
+experience is required — just open the file in any text editor (or GitHub's web
+editor), change the values between the quotes, and save.
 
 ## Files and what they control
 

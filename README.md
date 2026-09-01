@@ -54,17 +54,24 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```
 src/
-  app/                 Next.js App Router routes (pages + /api/contact route handler)
+  app/                 Next.js App Router routes
+    api/contact/       Membership/contact form route handler
+    api/admin/         Admin auth (login/logout) + content read/write route handlers
+    admin/             Password-protected content editor UI (/admin)
   components/          Reusable UI components (server components by default; "use client" where needed)
   content/              JSON "CMS" content files — see CMS-GUIDE.md
   lib/
     content.ts         Typed getters over the JSON content (single source of truth for shapes)
+    admin-auth.ts       Signed-cookie session helpers for the /admin UI
+    admin-collections.ts Allow-list of content files the /admin UI is permitted to read/write
     utils.ts           `cn()` class-name helper (clsx + tailwind-merge)
+  proxy.ts             Guards /admin and /api/admin behind the signed session cookie
   content and component tests live in __tests__/ folders next to the code they cover
 e2e/                    Playwright end-to-end specs
 public/images/          Static assets (club logo, etc. — see CMS-GUIDE.md)
 docs/ARCHITECTURE.md     Architecture diagrams and deep-dive documentation
-CMS-GUIDE.md            Non-developer guide to editing site content
+CMS-GUIDE.md            Non-developer guide to editing site content (Admin UI + JSON files)
+.github/workflows/       CI (lint/test/build/e2e) and static GitHub Pages deployment
 ```
 
 ## Content management
@@ -72,10 +79,18 @@ CMS-GUIDE.md            Non-developer guide to editing site content
 There is no external headless CMS wired up (no Sanity/Prismic account was available
 when this was built). Instead, all editable content — players, fixtures, results,
 events, gallery, sponsors, committee, club info — lives in plain JSON files under
-[`src/content/`](src/content), documented for non-developers in
-[CMS-GUIDE.md](CMS-GUIDE.md). The JSON files are typed 1:1 through
-[`src/lib/content.ts`](src/lib/content.ts), so migrating to a real headless CMS later
-just means swapping those getters for API calls.
+[`src/content/`](src/content), typed 1:1 through [`src/lib/content.ts`](src/lib/content.ts).
+
+Non-technical admins have two ways to edit it, documented in [CMS-GUIDE.md](CMS-GUIDE.md):
+
+1. **The `/admin` UI** — a password-protected, form-based content editor (no JSON/code
+   editing). Requires `ADMIN_PASSWORD` and `ADMIN_SESSION_SECRET` env vars (see
+   [`.env.example`](.env.example)) and a Node host with a writable filesystem — it is
+   not available on the static GitHub Pages export.
+2. **Editing the JSON files directly** — always available as a fallback.
+
+Migrating to a real headless CMS later just means swapping the `getX()` functions in
+`src/lib/content.ts` for API calls.
 
 ## Testing
 
@@ -94,9 +109,45 @@ the full suite (`npm test` and `npm run test:e2e`) before considering the change
 See [`.github/copilot-instructions.md`](.github/copilot-instructions.md) for the full
 testing policy used by AI coding agents working in this repo.
 
-## Deployment
+## Hosting & deployment
 
-Any Next.js-compatible host works (e.g. [Vercel](https://vercel.com/new)). Run
-`npm run build` then `npm run start`, or point your platform's Next.js build/start
-commands at this repo.
+### Option A: Node-capable host (recommended, full functionality)
+
+Any Next.js-compatible host works (e.g. [Vercel](https://vercel.com/new), Netlify,
+Railway, a VPS). Run `npm run build` then `npm run start`, or point your platform's
+Next.js build/start commands at this repo. This preserves everything, including the
+`/api/contact` route and the `/admin` content-editing UI.
+
+### Option B: GitHub Pages (static-only)
+
+GitHub Pages only serves static files — it can't run the `/api/contact` route or the
+`/admin` UI (both need a Node server). Two ready-made workflows are included:
+
+- [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — on every push/PR: installs
+  deps, lints, runs `npm test`, `npm run build`, and (after `lint-and-test` passes)
+  `npm run test:e2e`.
+- [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) — on push
+  to `main`: removes `src/app/api`, `src/app/admin`, and `src/proxy.ts` (unsupported
+  by static export), builds a static export (`npm run build:static`, which sets
+  `STATIC_EXPORT=true` so `next.config.ts` switches to `output: "export"` with
+  unoptimized images), then publishes it via `actions/upload-pages-artifact` +
+  `actions/deploy-pages`.
+
+To enable it once: in the repo's **Settings → Pages**, set *Source* to **GitHub
+Actions**. Then, optionally:
+
+- Because the API route is gone on Pages, the contact form falls back to
+  `NEXT_PUBLIC_CONTACT_FORM_ENDPOINT` — set this as a repository **variable** (Settings
+  → Secrets and variables → Actions → Variables) to an external form backend (e.g.
+  [Formspree](https://formspree.io)) if you need the contact form to work on Pages.
+  Leave it unset and the form will simply fail on Pages (it still works fully on a
+  Node host, along with `/admin`).
+- The workflow defaults `PAGES_BASE_PATH` to `/<repo-name>` (project Pages without a
+  custom domain, e.g. `https://<user>.github.io/bpscc/`). If you're using a custom
+  domain or a user/org root page (`<user>.github.io`), edit the workflow to set it to
+  an empty string instead.
+
+To try the static build locally: `npm run build:static` (after removing
+`src/app/api`, `src/app/admin`, and `src/proxy.ts`, since Next will otherwise
+fail the build the same way it would on Pages).
 

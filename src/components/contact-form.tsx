@@ -12,6 +12,10 @@ const INQUIRY_TYPES = [
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+// On static hosts (e.g. GitLab Pages) there is no /api/contact server, so point
+// NEXT_PUBLIC_CONTACT_FORM_ENDPOINT at an external form backend (Formspree, Basin, etc).
+const CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_FORM_ENDPOINT || "/api/contact";
+
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,9 +29,9 @@ export function ContactForm() {
     const data = Object.fromEntries(new FormData(form).entries());
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(CONTACT_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(data),
       });
 

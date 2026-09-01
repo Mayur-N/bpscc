@@ -79,6 +79,8 @@ flowchart TD
     Root --> Sponsors["/sponsors"]
     Root --> Contact["/contact"]
     Contact --> API["POST /api/contact"]
+    Root --> Admin["/admin (password-gated)"]
+    Admin --> AdminAPI["/api/admin/* (session-cookie gated)"]
 ```
 
 Every route lives under [`src/app`](../src/app). `layout.tsx` wraps every page with the
@@ -102,7 +104,42 @@ flowchart TD
 Reusable presentational components live in [`src/components`](../src/components) and
 take typed props from `src/lib/content.ts` — they don't import JSON directly.
 
-## 5. Extending the contact form
+## 6. Admin content-editing UI
+
+Non-developers can edit `src/content/*.json` through a form-based UI instead of raw
+files:
+
+```mermaid
+flowchart LR
+    Login["/admin/login"] -- "POST /api/admin/login\n(password check)" --> Cookie[Signed session cookie\nsrc/lib/admin-auth.ts]
+    Cookie -- "validated by" --> MW[src/proxy.ts]
+    MW -- "guards" --> Admin["/admin, /admin/[collection]"]
+    MW -- "guards" --> AdminAPI["/api/admin/content/[collection]"]
+    Admin -- "GET/PUT JSON" --> AdminAPI
+    AdminAPI -- "allow-listed\nsrc/lib/admin-collections.ts" --> JSON[(src/content/*.json)]
+```
+
+- **Auth:** `/api/admin/login` checks `password` against `ADMIN_PASSWORD` (constant-time
+  compare) and, if both `ADMIN_PASSWORD` and `ADMIN_SESSION_SECRET` are set, issues an
+  HMAC-signed, httpOnly, `SameSite=strict` session cookie (`src/lib/admin-auth.ts`).
+  `src/proxy.ts` guards every `/admin/**` and `/api/admin/**` route (except the
+  login page/endpoint) and redirects/401s if the cookie is missing, tampered, or expired
+  (8h TTL).
+- **Content access:** `/api/admin/content/[collection]` only accepts collection keys
+  present in the `ADMIN_COLLECTIONS` allow-list (`src/lib/admin-collections.ts`) — this
+  prevents path traversal to arbitrary files. `PUT` validates the payload's top-level
+  shape (object vs. array) and, for arrays, that every entry has a unique string `id`,
+  before writing the file with `fs.promises.writeFile`.
+- **UI:** `src/components/admin/json-field.tsx` is a generic recursive form renderer —
+  it walks any JSON value (object/array/string/number/boolean) and renders matching
+  inputs, so every collection is editable without collection-specific form code.
+- **Deployment constraint:** this feature needs a writable filesystem and Node runtime,
+  so it's excluded from the static GitHub Pages build (see
+  [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml), which
+  deletes `src/app/api`, `src/app/admin`, and `src/proxy.ts` before the static
+  export). It only works on the Node-hosted deployment option.
+
+## 7. Extending the contact form
 
 `src/app/api/contact/route.ts` validates the payload (name/email/phone/inquiryType/
 message) and currently just `console.log`s it. To wire it to a real destination
@@ -110,13 +147,14 @@ message) and currently just `console.log`s it. To wire it to a real destination
 — the validation and response contract (`{ ok: true }` / `{ error: string }`, matching
 HTTP status codes) should stay the same so `ContactForm` doesn't need changes.
 
-## 6. Testing architecture
+## 8. Testing architecture
 
 ```mermaid
 flowchart LR
     subgraph Unit/Component - Vitest + Testing Library
-        L1[src/lib/__tests__] --> Content[content.ts]
+        L1[src/lib/__tests__] --> Content[content.ts / admin-auth.ts]
         L2[src/app/api/contact/__tests__] --> Route[route.ts]
+        L2b[src/app/api/admin/**/__tests__] --> AdminRoutes[login/content route.ts]
         L3[src/components/__tests__] --> Components[Interactive components]
     end
     subgraph E2E - Playwright, runs against a production build
@@ -124,6 +162,7 @@ flowchart LR
         E2[e2e/navigation.spec.ts]
         E3[e2e/squad-and-fixtures.spec.ts]
         E4[e2e/contact-form.spec.ts]
+        E5[e2e/admin-auth.spec.ts]
     end
 ```
 
@@ -136,7 +175,7 @@ flowchart LR
   appropriate layer, and both `npm test` and `npm run test:e2e` should pass before the
   change is considered done. See [`.github/copilot-instructions.md`](../.github/copilot-instructions.md).
 
-## 7. Theming
+## 9. Theming
 
 All colors are CSS custom properties defined once in
 [`src/app/globals.css`](../src/app/globals.css) (`--panther-black`, `--panther-charcoal`,
@@ -145,7 +184,7 @@ All colors are CSS custom properties defined once in
 `text-panther-*`, `border-panther-*` utilities. To re-theme the whole site, change the
 hex values in one place — no component changes needed.
 
-## 8. Known constraints / gotchas
+## 10. Known constraints / gotchas
 
 - **lucide-react v1.x removed trademarked brand icons** (Instagram/Facebook/YouTube/etc.).
   Custom SVGs for these live in [`src/components/social-icons.tsx`](../src/components/social-icons.tsx).
@@ -154,3 +193,9 @@ hex values in one place — no component changes needed.
   image if it's missing.
 - **Windows/PowerShell**: `npx`/`npm` `.ps1` shims can be blocked by execution policy —
   use `npx.cmd` / `npm.cmd` if you hit `UnauthorizedAccess` errors.
+- **The `/admin` UI is disabled by default** (no default password is shipped) — it only
+  activates once `ADMIN_PASSWORD` and `ADMIN_SESSION_SECRET` are set, and it's stripped
+  out entirely for the static GitHub Pages build.
+- **CI/CD**: `.github/workflows/ci.yml` (lint/test/build/e2e) and
+  `.github/workflows/deploy-pages.yml` (static export → GitHub Pages) — see the
+  "Hosting & deployment" section of `README.md`.
